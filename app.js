@@ -48,7 +48,7 @@ app.post(`/login`, function(req, res){
   con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
-    var sql = `SELECT count(customer.id) AS count FROM customer WHERE password=${username} AND username=${password}`;
+    var sql = `SELECT count(Customer.id) AS count FROM Customer WHERE password=${username} AND username=${password}`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       if(result == 1){
