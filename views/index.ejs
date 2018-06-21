@@ -74,14 +74,14 @@
       <ul class="sidebar-menu" data-widget="tree" id="Freezer_menu">
         <li class="header">NAVIGATION</li>
         <!-- Menu Jonas -->
-        <div id="menu_div">
         <%
+
         // counting results
         var freezerCount;
         var shelfCount;
         // resultsets
 
-        var freezerResult = ["a","b","c","d"];
+        var freezerResult = freezer;
         var shelfResult;
 
         var freezerName;
@@ -89,13 +89,13 @@
 
         var html;
 
-        //freezerCount = freezerResult.length;
+        freezerCount = 4;
 
-        //for (i = 0; i < freezerCount; i++) {
-        for (i = 0; i < 2; i++) {
+        for (i = 1; i < freezerCount; i++) {
             //freezerName = freezerResult[i].name;
+            freezerName = i;
             html += "<li class='treeview'>";
-            //html += "<a href='#'><span> " + freezerName + "</span>";
+            html += "<a href='#'><span> " + freezerName + "</span>";
             html += "<span class='pull-right-container'>";
             html += "<i class='fa fa-angle-left pull-right'>";
             html += "</i></span></a>";
@@ -105,23 +105,23 @@
             html += "<a href='#'>Configuration<span class='pull-right-container'>";
             html += "<i class='fa fa-angle-left pull-right'></i></span></a>";
             html += "<ul class='treeview-menu'>";
-
-            var shelfSQL = "SELECT * FROM shelf WHERE Freezer_id = " + freezerResult[i].id;
+/*
 
             for (i = 0; i < shelfCount; i++) {
                 // TODO shelfName = "1";
                 html += "<li><a href='#'> " + shelfName + "</a></li>";
             }
-
+*/
             html += "<li><a href='#'><i class='fa fa-plus'></i> Create Shelf</a></li></ul></li>";
             html += "<li><a href='#'> Products</a></li></ul></li>";
         }
+
         %>
         <%- html %>
+
         <li class="header">Add Freezer</li>
         <li class="bg-green"><a href="/addFreezer" style="background-color: rgb(0, 166, 90);"><i class="fa fa-plus" style="color: rgb(255, 255, 255);"></i><span style="color: rgb(255, 255, 255);">Create new</span></a></li>
     </ul>
-    </div>
     </section>
     <!-- /.sidebar -->
   </aside>
