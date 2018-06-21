@@ -26,7 +26,7 @@ app.get(`/login`,function(req,res){
   res.redirect(`/login`);
 })
 .get(`/index`, function(req,res){
- var a = menuSQL();
+    var a = menuSQL();
   res.render(`index.ejs`, {freezerResult: a})
 })
 .get(`/addFreezer`, function(req,res){
