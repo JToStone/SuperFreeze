@@ -1,12 +1,14 @@
+
+function addsehlfs(){
+
 var con = dbconnect();
+var name = document.getElementById(`name`).value;
+var temperatur = document.getElementById(`temp`).value;
 
-var sql = "INSERT INTO Shelf (name,temperatur) Values ?";
-var name = document.getElementById('name');
-var temperatur = document.getElementById('temp');
+var sql = `INSERT INTO Shelf (name,temperatur) Values (${name}, ${temperatur})`;
 
-var values =[name, temperatur];
 
-con.query(sql, [Values], function (err, result) {
-    if (err) throw err;
-    console.log("Number of records inserted: " + result.affectedRows);
-  });
+con.query(sql, function (err, result){
+
+});
+};

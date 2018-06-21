@@ -6,8 +6,8 @@ function add_freezer(){
 
   var con = dbconnect();
 
-  var sql = `INSERT INTO freezer(name, Type_id, Customer_id) VALUES (${name},${type},)`;
-
+  var sql = `INSERT INTO freezer(name, Type_id, Customer_id) VALUES (${name},${type},${shelfs})`;
+//falls es nicht funktioniert ``. =)
   con.query(sql, function(err, result){
 
   });
