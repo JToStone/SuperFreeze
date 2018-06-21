@@ -26,9 +26,8 @@ app.get(`/login`,function(req,res){
   res.redirect(`/login`);
 })
 .get(`/index`, function(req,res){
-
-
-  res.render(`index.ejs`);
+ var a = menuSQL();
+  res.render(`index.ejs`, {freezerResult: a})
 })
 .get(`/addFreezer`, function(req,res){
   res.render(`freezer.ejs`);
@@ -60,10 +59,20 @@ app.post(`/login`, function(req, res){
       }
     });
   });
-})
-
-
-
+});
 
 
 console.log('8080 is the magic port');
+
+
+function menuSQL(){
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    var sql = `SELECT * FROM Freezer`;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      return result;
+    });
+  });
+};
