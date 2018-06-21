@@ -1,10 +1,15 @@
 var express = require(`express`)
+var bodyParser = require(`body-parser`)
+var mysql = require('mysql');
 
 var app = express();
+
 app.use('/css',express.static( 'views/css'));
 app.use(`/js`,express.static(`js`));
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
 
-var mysql = require('mysql');
+
 
 var con = mysql.createConnection({
   host: "10.10.10.102",
@@ -14,20 +19,6 @@ var con = mysql.createConnection({
 });
 
 app.get(`/login`,function(req,res){
-
-
-
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    var sql = `SELECT count(customer.id) AS count FROM customer WHERE password=${username} AND username=${password}`;
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("1 record inserted");
-    });
-  });
-
-
   res.render(`login.ejs`);
 
 })
@@ -49,4 +40,28 @@ app.get(`/login`,function(req,res){
   res.render(`product.ejs`);
 })
 .listen(8080);
+
+app.post(`/login`, function(req, res){
+  var username = req.body.username;
+  var password = req.body.password;
+
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    var sql = `SELECT count(customer.id) AS count FROM customer WHERE password=${username} AND username=${password}`;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      if(result == 1){
+        res.redirect(`index.ejs`);
+      } else {
+        console.log("Wrong login");
+      }
+    });
+  });
+})
+
+
+
+
+
 console.log('8080 is the magic port');
