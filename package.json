@@ -1,0 +1,23 @@
+{
+  "name": "superfreeze",
+  "version": "1.0.0",
+  "description": "Superfreeze",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JToStone/SuperFreeze.git"
+  },
+  "author": "Marvin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JToStone/SuperFreeze/issues"
+  },
+  "homepage": "https://github.com/JToStone/SuperFreeze#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  }
+}
