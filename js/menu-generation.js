@@ -1,7 +1,3 @@
-/*var mysql = require('mysql');
-
-var con = dbconnect();
-*/
 var freezerSQL = "SELECT * FROM Freezer WHERE customer_id = 1";
 
 // counting results
@@ -32,14 +28,7 @@ for (i = 0; i < freezerCount; i++) {
     html += "<ul class='treeview-menu'>";
 
     var shelfSQL = "SELECT * FROM shelf WHERE Freezer_id = " + freezerResult[i].id;
-/*
-    con.query(shelfSQL,
-        function (result) {
-            shelfCount = result.length;
-            shelfResult = result;
-        };
-    );
-*/
+
     for (i = 0; i < shelfCount; i++) {
         // TODO shelfName = "1";
         html += "<li><a href='#'> " + shelfName + "</a></li>";
