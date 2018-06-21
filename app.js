@@ -26,8 +26,19 @@ app.get(`/login`,function(req,res){
   res.redirect(`/login`);
 })
 .get(`/index`, function(req,res){
-    var a = menuSQL();
-  res.render(`index.ejs`, {freezerResult: a})
+
+var a;
+    con.connect(function(err) {
+      if (err) throw err;
+      console.log("Connected!");
+      var sql = `SELECT * FROM Freezer`;
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        a = result;
+        console.log(result);
+      });
+    });
+  res.render(`index.ejs`, {freezer: a})
 })
 .get(`/addFreezer`, function(req,res){
   res.render(`freezer.ejs`);
@@ -73,6 +84,7 @@ function menuSQL(){
     con.query(sql, function (err, result) {
       if (err) throw err;
       return result;
+      console.log(result);
     });
   });
 };
