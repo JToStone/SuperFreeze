@@ -12,6 +12,7 @@ con.query(sql,function(err, result){
       window.sessionStorage.setItem(loggedIn,true);
       console.log("Logged In");
       window.location.href("index.html");
+      sql = `SELECT `
     } else {
       console.log("Not Logged In");
     }
