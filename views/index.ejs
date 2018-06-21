@@ -81,7 +81,6 @@
         var shelfCount;
         // resultsets
 
-        var freezerResult = freezer;
         var shelfResult;
 
         var freezerName;
@@ -89,11 +88,19 @@
 
         var html;
 
-        freezerCount = 4;
 
-        for (i = 1; i < freezerCount; i++) {
-            //freezerName = freezerResult[i].name;
-            freezerName = i;
+
+        names = [];
+
+        Object.keys(result).forEach(function(key) {
+            var row = result[key];
+            names.push(row.name);
+        });
+
+        freezerCount = names.length;
+
+        for (i = 0; i < freezerCount; i++) {
+            freezerName = names[i];
             html += "<li class='treeview'>";
             html += "<a href='#'><span> " + freezerName + "</span>";
             html += "<span class='pull-right-container'>";

@@ -10,7 +10,6 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
 
-
 var con = mysql.createConnection({
   host: "10.10.10.10",
   user: "superfreezer",
@@ -27,18 +26,15 @@ app.get(`/login`,function(req,res){
 })
 .get(`/index`, function(req,res){
 
-var a;
     con.connect(function(err) {
       if (err) throw err;
       console.log("Connected!");
       var sql = `SELECT * FROM Freezer`;
       con.query(sql, function (err, result) {
         if (err) throw err;
-        a = result;
-        console.log(result);
+        res.render(`index.ejs`, { result: result});
       });
     });
-  res.render(`index.ejs`, {freezer: a})
 })
 .get(`/addFreezer`, function(req,res){
   res.render(`freezer.ejs`);
