@@ -119,13 +119,29 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>Meat</td>
-                  <td>Chicken</td>
-                  <td>12.06.2018</td>
-                  <td>26.06.2018</td>
-                  <td><button type="button" class="btn btn-primary">Delete</button></td>
-                </tr>
+
+                <%=
+                    var html;
+
+                    var shelfName;
+                    var productName;
+                    var entryDate;
+                    var expiryDate;
+
+                    var productCount;
+
+                    for (i = 0; i < productCount; i++) {
+                        html += "<tr>";
+
+                        html += "<td>" + shelfName + "</td>";
+                        html += "<td>" + productName + "</td>";
+                        html += "<td>" + entryDate + "</td>";
+                        html += "<td>" + expiryDate + "</td>";
+                        html += "<td><button type='button' class='btn btn-primary'>Delete</button></td>";
+
+                        html += "</tr>";
+                    }
+                %>
               </table>
             </div>
             <!-- /.box-body -->
