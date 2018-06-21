@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 
 var con = mysql.createConnection({
-  host: "10.10.10.102",
+  host: "10.10.10.10",
   user: "superfreezer",
   password: "asdf",
   database: "superfreezer"
@@ -44,15 +44,17 @@ app.get(`/login`,function(req,res){
 app.post(`/login`, function(req, res){
   var username = req.body.username;
   var password = req.body.password;
-
+  console.log(username);
+  console.log(password);
   con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
-    var sql = `SELECT count(Customer.id) AS count FROM Customer WHERE password=${username} AND username=${password}`;
+    var sql = `SELECT count(Customer.id) AS count FROM Customer WHERE user_name=\'`+ username + "\' AND password=\'"+ password+"\'";
     con.query(sql, function (err, result) {
+      console.log(result);
       if (err) throw err;
-      if(result == 1){
-        res.redirect(`index.ejs`);
+      if(result[0].count == 1){
+        res.redirect(`/index`);
       } else {
         console.log("Wrong login");
       }
