@@ -43,6 +43,9 @@ app.get(`/login`,function(req,res){
 .get(`/config`, function(req,res){
   res.render(`configuration.ejs`);
 })
+.get(`/config/:shelf_id`, function(req,res){
+  res.render(`configuration.ejs`);
+})
 .get(`/product`, function(req,res){
   res.render(`product.ejs`);
 })
