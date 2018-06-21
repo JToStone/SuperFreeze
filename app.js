@@ -32,7 +32,6 @@ app.get(`/login`,function(req,res){
       var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
       con.query(sql, function (err, result) {
         if (err) throw err;
-        console.log(result);
         res.render(`index.ejs`, { result: result});
       });
     });
