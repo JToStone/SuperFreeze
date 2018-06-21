@@ -75,9 +75,58 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">NAVIGATION</li>
-        <!-- Menu Jonas --> 
-        <li class="header">Add Freezer</li>
-        <li class="bg-green"><a href="/addFreezer" style="background-color: rgb(0, 166, 90);"><i class="fa fa-plus" style="color: rgb(255, 255, 255);"></i><span style="color: rgb(255, 255, 255);">Create new</span></a></li>
+        <!-- Menu Jonas -->
+        <%
+
+        var html;
+
+        freezer = [];
+
+        var newFreezer = false;
+
+        Object.keys(result).forEach(function(key) {
+            var row = result[key];
+
+            var contains = false;
+
+            for (i=0;i < freezer.length ;i++) {
+                if (freezer[i] == row.Freezer) {
+                    contains = true;
+                    break;
+                }
+            }
+
+            if (contains == false) {
+                if (newFreezer == true) {
+                    html += "<li><a href='#'><i class='fa fa-plus'></i> Create Shelf</a></li></ul></li>";
+                    html += "<li><a href='#'> Products</a></li></ul></li>";
+                } else {
+                    newFreezer = true;
+                }
+                freezer.push(row.Freezer);
+                html += "<li class='treeview'>";
+                html += "<a href='#'><span> " + row.Freezer + "</span>";
+                html += "<span class='pull-right-container'>";
+                html += "<i class='fa fa-angle-left pull-right'>";
+                html += "</i></span></a>";
+
+                html += "<ul class='treeview-menu'>";
+                html += "<li class='treeview'>";
+                html += "<a href='#'>Configuration<span class='pull-right-container'>";
+                html += "<i class='fa fa-angle-left pull-right'></i></span></a>";
+                html += "<ul class='treeview-menu'>";
+            }
+            if (row.Shelf != null) {
+                html += "<li><a href='/config/" + row.id + "'> " + row.Shelf + "</a></li>";
+            }
+
+        });
+
+            html += "<li><a href='#'><i class='fa fa-plus'></i> Create Shelf</a></li></ul></li>";
+            html += "<li><a href='#'> Products</a></li></ul></li>";
+        %>
+        <%- html %>
+        <li class="bg-green"><a href="/addFreezer" style="background-color: rgb(0, 166, 90);"><i class="fa fa-plus" style="color: rgb(255, 255, 255);"></i><span style="color: rgb(255, 255, 255);">Add Freezer</span></a></li>
       </ul>
     </section>
     <!-- /.sidebar -->

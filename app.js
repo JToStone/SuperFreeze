@@ -10,12 +10,12 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
 
-var con = mysql.createConnection({
+/*var con = mysql.createConnection({
   host: "10.10.10.11",
   user: "superfreezer",
   password: "asdf",
   database: "superfreezer"
-});
+});*/
 
 app.get(`/login`,function(req,res){
   res.render(`login.ejs`);
@@ -26,27 +26,25 @@ app.get(`/login`,function(req,res){
 })
 .get(`/index`, function(req,res){
 
-    con.connect(function(err) {
-      if (err) throw err;
-      console.log("Connected!");
-      var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
-      con.query(sql, function (err, result) {
-        if (err) throw err;
-        res.render(`index.ejs`, { result: result});
-      });
-    });
+    var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
+    mysql_query(sql, `index.ejs`, res);
+
 })
 .get(`/addFreezer`, function(req,res){
-  res.render(`freezer.ejs`);
+    var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
+    mysql_query(sql, `freezer.ejs`, res);
 })
 .get(`/config`, function(req,res){
-  res.render(`configuration.ejs`);
+    var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
+    mysql_query(sql, `configuration.ejs`, res);
 })
 .get(`/config/:shelf_id`, function(req,res){
-  res.render(`configuration.ejs`);
+    var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
+    mysql_query(sql, `configuration.ejs`, res);
 })
 .get(`/product`, function(req,res){
-  res.render(`product.ejs`);
+    var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
+    mysql_query(sql, `product.ejs`, res);
 })
 .listen(8080);
 
@@ -87,3 +85,29 @@ function menuSQL(){
     });
   });
 };
+
+function mysql_con () {
+
+    var con = mysql.createConnection({
+      host: "10.10.10.11",
+      user: "superfreezer",
+      password: "asdf",
+      database: "superfreezer"
+    });
+
+    return con;
+}
+
+function mysql_query(sql, page, res) {
+    var con = mysql_con();
+
+    con.connect(function(err) {
+      if (err) throw err;
+      console.log("Connected!");
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        res.render(page, { result: result});
+      });
+    });
+
+}
