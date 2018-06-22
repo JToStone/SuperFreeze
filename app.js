@@ -39,6 +39,18 @@ app.get(`/login`,function(req,res){
     mysql_query_render(sql, `configuration.ejs`, res);
 })
 .get(`/config/:shelf_id`, function(req,res){
+
+  var con = mysql_con();
+  var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
+  var sql2 = 'SELECT * FROM Shelf;';
+  con.query( sql +' ; '+ sql2, [1, 2], function(err, results) {
+if (err) throw err;
+
+console.log(results[0]); // [{1: 1}]
+console.log(results[1]); // [{2: 2}]
+});
+
+/*
     var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
     var con = mysql_con();
 
@@ -49,6 +61,7 @@ app.get(`/login`,function(req,res){
         res.render('configuration.ejs', { result: result, shelf_id: req.params.shelf_id});
       });
     });
+    */
 })
 .get(`/product`, function(req,res){
     var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
