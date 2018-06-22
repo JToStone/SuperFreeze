@@ -4,8 +4,8 @@ var mysql = require('mysql');
 
 var app = express();
 
-app.use('/css',express.static( 'views/css'));
-app.use(`/js`,express.static(`js`));
+app.use('/css',express.static(__dirname + '/views/css'));
+app.use(`/js`,express.static(__dirname + `/js`));
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
