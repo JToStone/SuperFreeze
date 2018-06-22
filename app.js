@@ -61,7 +61,7 @@ app.post(`/login`, function(req, res){
   var password = req.body.password;
   console.log(username);
   console.log(password);
-  var con = mysql_con(); 
+  var con = mysql_con();
   con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
@@ -101,6 +101,22 @@ app.post(`/config/:shelf_id`, function(req, res){
   });
 });
 
+app.post(`/addFreezer`, function(req, res){
+  var name = req.body.name;
+  var type = req.body.type;
+  var shelfs = req.body.shelf;
+  con = mysql_con();
+  con.connect(function(err) {
+    if (err) throw err;
+    var sql = `INSERT INTO Freezer(name, Type_id, Customer_id) VALUES (${name},${type})`;
+    var sqlsh = `INSERT INTO Shelf()VALUES (${shelfs})`;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("Freezer Added");
+    }
+  });
+});
+
 console.log('8080 is the magic port');
 
 
@@ -123,7 +139,8 @@ function mysql_con () {
       host: "10.10.10.11",
       user: "superfreezer",
       password: "asdf",
-      database: "superfreezer"
+      database: "superfreezer",
+      multipleStatements: true
     });
 
     return con;
