@@ -40,7 +40,15 @@ app.get(`/login`,function(req,res){
 })
 .get(`/config/:shelf_id`, function(req,res){
     var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
-    mysql_query_render(sql, `configuration.ejs`, res);
+    var con = mysql_con();
+
+    con.connect(function(err) {
+      if (err) throw err;
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        res.render('configuration.ejs', { result: result, shelf_id: req.params.shelf_id});
+      });
+    });
 })
 .get(`/product`, function(req,res){
     var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
@@ -69,6 +77,21 @@ app.post(`/login`, function(req, res){
   });
 });
 
+app.post(`/config/:shelf_id`, function(req, res){
+  var name = req.body.name;
+  var temperature = req.body.temperature;
+  var selected_shelf = req.params.shelf_id;
+  con = mysql_con();
+  con.connect(function(err) {
+    if (err) throw err;
+    var sql = `UPDATE Shelf SET name=\'`+ name + "\', temperature=\'"+ temperature+"\' WHERE id=\'"+ selected_shelf+"\'";
+    con.query(sql, function (err, result) {
+      console.log(result);
+      if (err) throw err;
+        res.redirect(`/index`);
+    });
+  });
+});
 
 console.log('8080 is the magic port');
 
