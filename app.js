@@ -85,7 +85,14 @@ app.post(`/config/:shelf_id`, function(req, res){
   con = mysql_con();
   con.connect(function(err) {
     if (err) throw err;
-    var sql = `UPDATE Shelf SET name=\'`+ name + "\', temperature=\'"+ temperature+"\' WHERE id=\'"+ selected_shelf+"\'";
+    var sql = ``;
+    if(req.body.shelf == "delete"){
+      sql = `DELETE FROM Shelf WHERE id=\'`+ selected_shelf+"\'";
+    }
+    if(req.body.shelf == "update"){
+      sql = `UPDATE Shelf SET name=\'`+ name + "\', temperature=\'"+ temperature+"\' WHERE id=\'"+ selected_shelf+"\'";
+    }
+
     con.query(sql, function (err, result) {
       console.log(result);
       if (err) throw err;
