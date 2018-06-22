@@ -61,6 +61,7 @@ app.post(`/login`, function(req, res){
   var password = req.body.password;
   console.log(username);
   console.log(password);
+  var con = mysql_con(); 
   con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
