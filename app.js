@@ -27,24 +27,24 @@ app.get(`/login`,function(req,res){
 .get(`/index`, function(req,res){
 
     var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
-    mysql_query(sql, `index.ejs`, res);
+    mysql_query_render(sql, `index.ejs`, res);
 
 })
 .get(`/addFreezer`, function(req,res){
     var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
-    mysql_query(sql, `freezer.ejs`, res);
+    mysql_query_render(sql, `freezer.ejs`, res);
 })
 .get(`/config`, function(req,res){
     var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
-    mysql_query(sql, `configuration.ejs`, res);
+    mysql_query_render(sql, `configuration.ejs`, res);
 })
 .get(`/config/:shelf_id`, function(req,res){
     var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
-    mysql_query(sql, `configuration.ejs`, res);
+    mysql_query_render(sql, `configuration.ejs`, res);
 })
 .get(`/product`, function(req,res){
     var sql = `SELECT f1.name AS Freezer, s1.name AS Shelf, s1.id AS id FROM Freezer AS f1 LEFT JOIN Shelf AS s1 ON (s1.Freezer_id=f1.id) ORDER BY f1.name ASC, s1.id ASC;`;
-    mysql_query(sql, `product.ejs`, res);
+    mysql_query_render(sql, `product.ejs`, res);
 })
 .listen(8080);
 
@@ -98,7 +98,7 @@ function mysql_con () {
     return con;
 }
 
-function mysql_query(sql, page, res) {
+function mysql_query_render(sql, page, res) {
     var con = mysql_con();
 
     con.connect(function(err) {
@@ -109,5 +109,17 @@ function mysql_query(sql, page, res) {
         res.render(page, { result: result});
       });
     });
+}
 
+function mysql_query(sql) {
+    var con = mysql_con();
+
+    con.connect(function(err) {
+      if (err) throw err;
+      console.log("Connected!");
+      con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(Done);
+      });
+    });
 }
